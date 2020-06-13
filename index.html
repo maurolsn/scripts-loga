@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>ScriptS</title>
+</head>
+
+<body>
+    <form>
+        <fieldset>
+            <legend>Atendimentos</legend>
+
+            <input id= "nomeCliente" type="text" placeholder="Nome" name="nome" ><br><br>
+
+            <input id= "cpfCnpj" type="text" placeholder="CPF ou CNPJ" name="cpf"> <br><br>
+
+            <input id="dtvencBol" type="date" placeholder="Data do vencimento do boleto"><br><br>
+
+            <input id="tel" type="tel" placeholder="Telefone" ><br><br>
+
+            <label>Tipo de atendimento:</label><br>
+            <select id="slcAtendimento" name="tp_Atendimento" onclick="scriptTXT()">
+                <option>Selecione o tipo de atendimento</option>
+                <option value="ch_Tec">Chamado Técnico</option>
+                <option value="ch_TecFielLos">Field LOS</option>
+                <option value="ch_TecHuawey"> Chamado Técnico Huawei</option>
+                <option value="ch_TecTrocaOnuDef">TROCAR ONU DO CLIENTE</option>
+                <option value="chFin_2ViaBoleto"> 2ª Via Boleto</option>
+                <option value="chFin_InfPag"> Inf Pagamento</option>
+                <option value="chFin_InfPagNaoDisp"> Inf Pag Não Disponível</option>
+            </select><br><br>
+
+            <label>Script de encerramento!</Script></label><br>
+            <textarea id="valorDigitado" rows="10" cols="50"></textarea>
+
+            <button onclick="saveTextAsFile()">Salvar</button>
+            
+        </fieldset>
+
+    </form>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
