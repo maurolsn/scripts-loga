@@ -8,36 +8,45 @@
 
 <body>
     <form>
-        <fieldset>
-            <legend>Atendimentos</legend>
+        <label>Contato</label><br>
+        <input id= "nomeCliente" type="text" placeholder="Nome" ><br><br>
+        
+        <label>CPF ou CNPJ do Titular</label><br>
+        <input id= "cpfCnpj" type="text" placeholder="CPF ou CNPJ"> <br><br>
+        
+        <div id="Boletos" >
+            <div >
+                <label>Data vencimento do boleto</label><br>
+                <input id="dtvencBol" type="date"><br><br>
+            </div>
+            <div >
+                <label>Data Pagamento do bolet</label><br>
+                <input id="dtPagBol" type="date"><br><br>
+            </div>
+            <div >
+                <label>Banco de pagamento</label><br>
+                <input id="txtBancoPag" type="text"><br><br>
+            </div>
+        </div>
+        <label>Telefone</label><br>
+        <input id="tel" type="tel" placeholder="Telefone" ><br><br>
 
-            <input id= "nomeCliente" type="text" placeholder="Nome" name="nome" ><br><br>
+        <label>Tipo de atendimento:</label><br>
+        <select id="slcAtendimento" name="tp_Atendimento" onchange="scriptTXT()">
+            <option>Selecione o tipo de atendimento</option>
+            <option value="ch_Tec">Chamado Técnico</option>
+            <option value="ch_TecFiel">Visita Técnica LOSS</option>
+            <option value="ch_TecTrocarONUFiel">Trocar ONU cliente</option>
+            <option value="ch_TecHuawey"> Chamado Técnico Huawei</option>
+            <option value="chFin_2ViaBoleto"> 2ª Via Boleto</option>
+            <option value="chFin_InfPag"> Inf Pagamento</option>
+            <option value="chFin_InfPagNaoDisp"> Inf Pag Não Disponível</option>                
+        </select><br><br>
 
-            <input id= "cpfCnpj" type="text" placeholder="CPF ou CNPJ" name="cpf"> <br><br>
+        <label>Script de encerramento!</Script></label><br>
+        <textarea id="valorDigitado" rows="10" cols="50"></textarea>
 
-            <input id="dtvencBol" type="date" placeholder="Data do vencimento do boleto"><br><br>
-
-            <input id="tel" type="tel" placeholder="Telefone" ><br><br>
-
-            <label>Tipo de atendimento:</label><br>
-            <select id="slcAtendimento" name="tp_Atendimento" onclick="scriptTXT()">
-                <option>Selecione o tipo de atendimento</option>
-                <option value="ch_Tec">Chamado Técnico</option>
-                <option value="ch_TecFielLos">Field LOS</option>
-                <option value="ch_TecHuawey"> Chamado Técnico Huawei</option>
-                <option value="ch_TecTrocaOnuDef">TROCAR ONU DO CLIENTE</option>
-                <option value="chFin_2ViaBoleto"> 2ª Via Boleto</option>
-                <option value="chFin_InfPag"> Inf Pagamento</option>
-                <option value="chFin_InfPagNaoDisp"> Inf Pag Não Disponível</option>
-            </select><br><br>
-
-            <label>Script de encerramento!</Script></label><br>
-            <textarea id="valorDigitado" rows="10" cols="50"></textarea>
-
-            <button onclick="saveTextAsFile()">Salvar</button>
-            
-        </fieldset>
-
+        <button onclick="saveTextAsFile()">Salvar</button>            
     </form>
 
     <script src="main.js"></script>

@@ -1,38 +1,32 @@
-var capturar = "";
-var nomeCli = "";
-var dtVencBoleto = "";
-var txtScript = "";
-var txtTel = "";
-
 function scriptTXT(){
     capturar = document.getElementById('slcAtendimento').value;
     nomeCli = document.getElementById('nomeCliente').value;
     txtTel = document.getElementById('tel').value;
     //encerramento Chamado Técnico
     if (capturar == "ch_Tec"){
-        txtScript = "Aplicado Restory, em seguida aplicadas todas as configurações padrões." + 
-            "&#013;No teste realizado pelo cliente o mesmo informa que a conexão foi normalizada."+
-            "&#013;Cliente: " + nomeCli + " - " + txtTel;
+        txtScript = "Sr. " + nomeCli +", entra em contato informando que está com lentidão."+
+        "&#013;Acessada ONU, verificado que RX, VLAN e PPPoE estão corretos." +
+        "&#013;Realizado reset, reconfigurado DHCP da ONU e cliente informa que conexão foi normalizada." + 
+        "&#013;Cliente: " + nomeCli + " - " + txtTel;
         document.getElementById('valorDigitado').innerHTML = txtScript;
 
     }
-    //encerramento Chamado Técnico Field Geral
-    if (capturar == "ch_TecFielLos"){
-        txtScript = "Reclamação: Cliente reclama que está sem internet."+
-            "&#013;Motivo da necessidade de tratativa in-loco:Será necessário ir ao local pois a ONU apresenta LED LOSS aceso, possível rompimento."+
-            "&#013;Ações efetuadas pelo Analista:Verificado que não há falha massiva na região, somente esse cliente está fora na caixa."+ 
-            "&#013;Cliente: " + nomeCli +
-            "&#013;Telefone: " + txtTel;
+    //encerramento Chamado Técnico LOSS 
+    if (capturar == "ch_TecFiel"){
+        txtScript = "Verificado que cliente está com LOSS, possível rompimento. " + 
+        "&#013;Efetuado procedimento do cordão óptico, ONU reiniciada, problema persiste."+
+        "&#013;Será encaminhado técnico. "+
+        "&#013;Cliente: " + nomeCli + " - " + txtTel;
         document.getElementById('valorDigitado').innerHTML = txtScript;
-
     }
-    if (capturar == "ch_TecTrocaOnuDef"){
-        txtScript = "Foi verificado que cliente possui ONU AN5506-02-F, modelo defeituoso."+ 
-        "&#013;Por gentileza, efetuar a troca do equipamento por um de modelo diferente. " + 
-        "&#013;Cliente: " + nomeCli +
-        "&#013;Telefone: " + txtTel;
+    //encerramento Chamado Técnico ch_TecTrocarONUFiel
+    if (capturar == "ch_TecTrocarONUFiel"){
+        txtScript = "Verificado que cliente está Sem Internet e WIFI intermitente " + 
+        "&#013;Efetuado procedimento do cordão óptico, ONU reiniciada, problema persiste."+
+        "Foi verificado que cliente possui ONU AN5506-02-F, modelo defeituoso. Por gentileza, efetuar a troca do equipamento por um de MODELO DIFERENTE. " +
+        "&#013;Será encaminhado técnico. "+
+        "&#013;Cliente: " + nomeCli + " - " + txtTel;
         document.getElementById('valorDigitado').innerHTML = txtScript;
-
     }
     //encerramento chamado técnico Huawey
     if (capturar == "ch_TecHuawey"){
@@ -46,34 +40,74 @@ function scriptTXT(){
     if (capturar == "chFin_2ViaBoleto"){
         dtVencBoleto = document.getElementById('dtvencBol').value.substr(0, 10).split('-').reverse().join('/');
         txtScript = "Cliente solicita a segunda via do boleto com vencimento " + dtVencBoleto + 
-        ".&#013;Boleto enviado para o cliente via e-mail, junto com o boleto foram passadas" + 
-        "instruções de como acessar o boleto via site da LOGA.&#013;Cliente confirmou o recebimento.&#013;Cliente: "
-         + nomeCli + " - " + txtTel;
+        ".&#013;Boleto enviado para o cliente via e-mail, junto com o boleto foram passadas " + 
+        "instruções de como acessar o boleto via site da LOGA.&#013;Cliente confirmou o recebimento."+
+        "&#013;Cliente: " + nomeCli + " - " + txtTel;
         document.getElementById('valorDigitado').innerHTML = txtScript;
     }
     //encerramento chamado financeiro informe de pagamento com sucesso
     if (capturar == "chFin_InfPag"){
         dtVencBoleto = document.getElementById('dtvencBol').value.split('-').reverse().join('/');
-        txtScript = "Cliente informa que efetuou o pagamento do boleto com vencimento " + dtVencBoleto + 
-        ".&#013;Informe de pagamento efetuado com sucesso!&#013;Cliente: "   + nomeCli + " - " + txtTel;
-        document.getElementById('valorDigitado').innerHTML = txtScript; 
+        dtPag = document.getElementById('dtPagBol').value.split('-').reverse().join('/');
+        txtBancoPag = document.getElementById('txtBancoPag').value;      
+
+        if (txtBancoPag != "" && dtPag != ""){
+            txtScript = "Cliente informa que efetuou o pagamento do boleto com vencimento " + dtVencBoleto + 
+            ", no dia " + dtPag + " através do banco " + txtBancoPag +
+            ".&#013;Informe de pagamento efetuado com sucesso!&#013;" + 
+            "Cliente esta ciente do prazo de até 60 minutos para normalização.&#013;" +
+            "Cliente: "   + nomeCli + " - " + txtTel;
+            document.getElementById('valorDigitado').innerHTML = txtScript; 
+        }
+        else if (dtPag != ""){
+            txtScript = "Cliente informa que efetuou o pagamento do boleto com vencimento " + dtVencBoleto + 
+            ", no dia " + dtPag +
+            ".&#013;Informe de pagamento efetuado com sucesso!&#013;" + 
+            "Cliente esta ciente do prazo de até 60 minutos para normalização.&#013;" +
+            "Cliente: "   + nomeCli + " - " + txtTel;
+            document.getElementById('valorDigitado').innerHTML = txtScript; 
+        }
+        else {
+            txtScript = "Cliente informa que efetuou o pagamento do boleto com vencimento " + dtVencBoleto + 
+            ".&#013;Informe de pagamento efetuado com sucesso!&#013;"+
+            "Cliente esta ciente do prazo de até 60 minutos para normalização.&#013;" +
+            "Cliente: "   + nomeCli + " - " + txtTel;
+            document.getElementById('valorDigitado').innerHTML = txtScript; 
+
+        }
     }
     //encerramento chamado financeiro informe de pagamento não disponível
     if (capturar == "chFin_InfPagNaoDisp"){
         dtVencBoleto = document.getElementById('dtvencBol').value.split('-').reverse().join('/');
-        txtScript = "Cliente informa que efetuou o pagamento do boleto com vencimento " + dtVencBoleto + 
-        ".&#013;Não foi possível aplicar o informe de pagamento. Cliente orientado a aguardar a compensação"+
-        " bancária que pode ocorrer em até 2 dias úteis.&#013;Cliente: "   + nomeCli + " - " + txtTel;
-        document.getElementById('valorDigitado').innerHTML = txtScript; 
+        dtPag = document.getElementById('dtPagBol').value.split('-').reverse().join('/');
+        txtBancoPag = document.getElementById('txtBancoPag').value;
+
+        if (txtBancoPag != "" && dtPag != ""){            
+            txtScript = "Cliente informa que efetuou o pagamento do boleto com vencimento " + dtVencBoleto + 
+            ", no dia " + dtPag + " através do banco " + txtBancoPag +
+            ".&#013;Não foi possível realizar o informe de pagamento, devido ao histórico de informes realizados." +
+            "&#013Cliente orientado a aguardar a compensação bancária que pode ocorrer em até 2 dias úteis." +
+            "&#013;Cliente: "   + nomeCli + " - " + txtTel;
+            document.getElementById('valorDigitado').innerHTML = txtScript; 
+        }
+        else if (dtPag != ""){
+            txtScript = "Cliente informa que efetuou o pagamento do boleto com vencimento " + dtVencBoleto + 
+            ", no dia " + dtPag +
+            ".&#013;Não foi possível realizar o informe de pagamento, devido ao histórico de informes realizados." +
+            "&#013Cliente orientado a aguardar a compensação bancária que pode ocorrer em até 2 dias úteis." +
+            "&#013;Cliente: "   + nomeCli + " - " + txtTel;
+            document.getElementById('valorDigitado').innerHTML = txtScript; 
+        }
+        else {
+            txtScript = "Cliente informa que efetuou o pagamento do boleto com vencimento " + dtVencBoleto +
+            ".&#013;Não foi possível realizar o informe de pagamento, devido ao histórico de informes realizados." +
+            "&#013Cliente orientado a aguardar a compensação bancária que pode ocorrer em até 2 dias úteis." +
+            "&#013;Cliente: "   + nomeCli + " - " + txtTel;
+            document.getElementById('valorDigitado').innerHTML = txtScript; 
+        }
     }
 }
-function salvar(){
-    // let blob = new Blob([txtScript],
-    //     {
-    //         type: "text/plain;charset=utf-8"
-    //     });
-    //     saveAs(blob, capturar + ".txt");
-}
+
 function saveTextAsFile()
 {
     var textToSave = document.getElementById("valorDigitado").value;
